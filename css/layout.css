@@ -1,0 +1,32 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  column-gap: 10px;
+  row-gap: 1em;
+}
+
+.wrapper {
+grid-column-gap: 10px;
+grid-row-gap: 10px;
+}
+
+.header {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  border-style: solid;
+  border-width: 0px 0px 1px 0px;
+}
+
+.mainContent {
+  padding: 10px 10px 10px 10px;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.footerContent {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  border-style: solid;
+  border-color: gray;
+  border-width: .5px 0px 0px 0px;
+}

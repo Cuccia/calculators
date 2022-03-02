@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Amortization</title>
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/color.css">
+    <script type="text/javascript">
+      // run program once user clicks button
+      function btnResult_Click()
+      {
+        var body = document.getElementsByTagName('body')[0];
+        var tbl = document.createElement('table');
+        tbl.style.width = '75%';
+        tbl.setAttribute('border', '1');
+        tbl.style.gridColumnStart = '2';
+        tbl.style.gridColumnEnd = '6';
+        tbl.style.marginLeft = 'auto';
+        tbl.style.marginRight = 'auto';
+
+        var caption = tbl.createCaption();
+        caption.textContent = "Calculated Amortization Schedule";
+
+        // create table header
+        var header = tbl.createTHead();
+        // insert first row
+        var row = header.insertRow(0);
+
+        // insert first cell
+        var columnOne = row.insertCell(0);
+        var columnOneText = document.createTextNode("Period");
+        // insert subsequent columns and cells
+        var columnTwo = row.insertCell();
+        var columnTwoText = document.createTextNode("Beginning Balance");
+        var columnThree = row.insertCell();
+        var columnThreeText = document.createTextNode("Payment");
+        var columnFour = row.insertCell();
+        var columnFourText = document.createTextNode("Interest");
+        var columnFive = row.insertCell();
+        var columnFiveText = document.createTextNode("Principal");
+        var columnSix = row.insertCell();
+        var columnSixText = document.createTextNode("Balance");
+
+        // add text to cells in header
+        columnOne.appendChild(columnOneText);
+        columnTwo.appendChild(columnTwoText);
+        columnThree.appendChild(columnThreeText);
+        columnFour.appendChild(columnFourText);
+        columnFive.appendChild(columnFiveText);
+        columnSix.appendChild(columnSixText);
+
+        // variables
+        var intLoanAmt, numOfPeriods, intRate;
+
+        // retrieve user inputs
+        intLoanAmt = document.getElementById("txtIntLoanAmt");
+        numOfPeriods = document.getElementById("txtNumOfPeriods");
+        intRate = document.getElementById("txtIntRate");
+
+        // set variables and convert strings to numbers
+        var intLoanAmtNum = parseFloat(intLoanAmt.value);
+        var numOfPeriodsNum = parseFloat(numOfPeriods.value);
+        var intRateNum = (parseFloat(intRate.value));
+
+        // validate input
+        if (isNaN(intLoanAmtNum) == false && isNaN(numOfPeriodsNum) == false && isNaN(intRateNum) == false) {
+
+          // prepare variables for equation
+          numOfPeriodsNum = numOfPeriodsNum * 12;
+          intRateNum = (intRateNum / 100) / 12;
+
+          // PMT for payment amount
+          var payment = (intRateNum * intLoanAmtNum) / (1 - Math.pow((1 + intRateNum), -numOfPeriodsNum));
+            // decimal formatting
+            function calc(payment)
+            {
+              var num = payment.original.value, rounded = payment.rounded;
+              var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+              rounded.value = max2Decimals;
+            }
+            payment = payment.toFixed(2);
+          // variables
+          var principalAmount = 0;
+          var beginningBalance = intLoanAmtNum;
+          var interestAmount;
+          var endingBalance;
+
+          // for loop to calculate each period
+          for (var currentPeriod = 1; currentPeriod <= numOfPeriodsNum; currentPeriod++) {
+            var currentRow = tbl.insertRow();
+
+            // first column is period number
+            var currentCell = currentRow.insertCell(0);
+            var currentText = document.createTextNode(currentPeriod.toString());
+            currentCell.appendChild(currentText);
+
+            // second column is beginning Balance
+            beginningBalance = beginningBalance - principalAmount;
+            // decimal formatting
+            function calc(beginningBalance)
+            {
+              var num = beginningBalance.original.value, rounded = beginningBalance.rounded;
+              var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+              rounded.value = max2Decimals;
+            }
+            beginningBalance = beginningBalance.toFixed(2);
+            // append table
+            var columnTwoCell = currentRow.insertCell();
+            var balanceText = document.createTextNode("$" + beginningBalance.toString());
+            columnTwoCell.appendChild(balanceText);
+
+            // third column is payment
+            var columnThreeCell = currentRow.insertCell();
+            var paymentText = document.createTextNode("$" + payment.toString());
+            columnThreeCell.appendChild(paymentText);
+
+            // fourth column is interest
+            interestAmount = beginningBalance * intRateNum;
+            // decimal formatting
+            function calc(interestAmount)
+            {
+              var num = interestAmount.original.value, rounded = interestAmount.rounded;
+              var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+              rounded.value = max2Decimals;
+            }
+            interestAmount = interestAmount.toFixed(2);
+            // append table
+            var columnFourCell = currentRow.insertCell();
+            var interestText = document.createTextNode("$" + interestAmount.toString());
+            columnFourCell.appendChild(interestText);
+
+
+            // fifth column is principal
+            principalAmount = payment - interestAmount;
+            // decimal formatting
+            function calc(principalAmount)
+            {
+              var num = principalAmount.original.value, rounded = principalAmount.rounded;
+              var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+              rounded.value = max2Decimals;
+            }
+            principalAmount = principalAmount.toFixed(2);
+            // append table
+            var columnFiveCell = currentRow.insertCell();
+            var principalText = document.createTextNode("$" + principalAmount.toString());
+            columnFiveCell.appendChild(principalText);
+
+
+            // sixth column is balance
+            endingBalance = beginningBalance - principalAmount;
+            // decimal formatting
+            function calc(endingBalance)
+            {
+              var num = endingBalance.original.value, rounded = endingBalance.rounded;
+              var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+              rounded.value = max2Decimals;
+            }
+            endingBalance = endingBalance.toFixed(2);
+            // append table
+            var columnSixCell = currentRow.insertCell();
+            var endingBalanceText = document.createTextNode("$" + endingBalance.toString());
+            columnSixCell.appendChild(endingBalanceText);
+          }
+
+          // append the table to the end of the body.
+          var tDivTable = document.getElementById("divPlaceholderTable");
+          RemoveAllChildren(tDivTable);
+          tDivTable.appendChild(tbl);
+        }
+        else {
+          // send result
+          var v
+          v = document.getElementById("spnResult");
+          v.innerHTML = "Please input a valid number";
+        }
+        // Remove all child nodes from the current node.
+        function RemoveAllChildren(argNode) {
+            while (argNode.firstChild) {
+                argNode.removeChild(argNode.firstChild);
+            }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="header">
+        <header>
+                    <h1 class="page-title"><a href="index.html">Calculators</a></h1>
+          <!--navigation-->
+          <nav>
+            <table>
+              <tr>
+                <td><a href="./amortize.html"><span class="selected">Amortization</span></a></td>
+                <td><a href="./futurevalue.html">Future Value</a></td>
+                <td><a href="./payment.html">Payment</a></td>
+                <td><a href="./compoundInterest.html">Compound Interest</a></td>
+                <td><a href="./afford.html">Max Payment</a></td>
+              </tr>
+            </table>
+          </nav>
+        </header>
+      </div>
+      <!--main content-->
+      <div class="mainContent">
+        <main>
+          <form class="frmMain" method="post">
+            <fieldset>
+              <legend>Amortization Schedule</legend>
+                <table>
+                  <tr>
+                    <td>Initial Loan Amount:</td>
+                    <td><input type="text" id="txtIntLoanAmt" /></td>
+                  </tr>
+                  <tr>
+                    <td>Number of Periods (Years):</td>
+                    <td><input type="text" id="txtNumOfPeriods" /></td>
+                  </tr>
+                  <tr>
+                    <td>Annual Interest Rate:</td>
+                    <td><input type="text" id="txtIntRate" /></td>
+                  </tr>
+                  <tr>
+                    <td><input class="button" type="button" id="btnResult" value="Result" onclick="btnResult_Click()" /></td>
+                    <td><span id="spnResult"></span></td>
+                  </tr>
+                </table>
+            </fieldset>
+          </form>
+          <br />
+          <div id="divPlaceholderTable"></div>
+        </main>
+      </div>
+      <div class="footerContent">
+        <footer><small><a href="https://anthonycuccia.com">www.anthonycuccia.com</a></small></footer>
+      </div>
+    </div>
+  </body>
+</html>

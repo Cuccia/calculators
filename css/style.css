@@ -1,0 +1,72 @@
+body {
+  font-family: sans-serif;
+  font-size: .75em;
+}
+
+td {
+  padding: 10px 10px 10px 10px;
+  color: #2c2c2c;
+}
+
+.selected {
+  padding-bottom: 5px;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav table {
+  padding: 0px 10px 10px 10px;
+}
+
+form {
+  padding: 10px;
+  margin-top: 25px;
+}
+
+.page-title {
+  font-size: 1.5em;
+  padding-left: 20px;
+  border-style: solid;
+  border-width: 0px 0px 1px 0px;
+  border-color: #2c2c2c;
+  text-decoration: none;
+}
+
+.page-title a:link {
+  text-decoration: none;
+  color: #0088b8;
+}
+
+legend {
+  border: none;
+  font-size: 22px;
+    font-size: 1.5em;
+}
+
+.button {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 20px;
+  padding: 5px 20px 5px 20px;
+  font-size: 1.2em;
+}
+
+fieldset {
+  border-radius: 0px;
+}
+
+h1 {
+  padding-bottom: 15px;
+  margin-top: 15px;
+}
+
+li {
+  padding: 0px 0px 10px 0px;
+}
+
+footer {
+  padding-top: 5px;
+  text-align: center;
+}

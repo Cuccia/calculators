@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Future Value</title>
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/color.css">
+    <script type="text/javascript">
+      // run program once user clicks button
+      function btnResult_Click()
+      {
+        var body = document.getElementsByTagName('body')[0];
+        var tbl = document.createElement('table');
+        tbl.style.width = '75%';
+        tbl.setAttribute('border', '1');
+        tbl.style.gridColumnStart = '2';
+        tbl.style.gridColumnEnd = '6';
+        tbl.style.marginLeft = 'auto';
+        tbl.style.marginRight = 'auto';
+
+        var caption = tbl.createCaption();
+        caption.textContent = "Future Value";
+
+        // create table header
+        var header = tbl.createTHead();
+        // insert first row
+        var row = header.insertRow(0);
+
+        // insert first cell
+        var columnOne = row.insertCell(0);
+        var columnOneText = document.createTextNode("Period");
+        // insert subsequent columns and cells
+        var columnTwo = row.insertCell();
+        var columnTwoText = document.createTextNode("Present Value");
+        var columnThree = row.insertCell();
+        var columnThreeText = document.createTextNode("Deposit");
+        var columnFour = row.insertCell();
+        var columnFourText = document.createTextNode("Interest");
+        var columnFive = row.insertCell();
+        var columnFiveText = document.createTextNode("New Balance");
+
+        // add text to cells in header
+        columnOne.appendChild(columnOneText);
+        columnTwo.appendChild(columnTwoText);
+        columnThree.appendChild(columnThreeText);
+        columnFour.appendChild(columnFourText);
+        columnFive.appendChild(columnFiveText);
+
+        // variables
+        var intInvestment, numOfPeriods, intRate, mnthDeposit;
+
+        // retrieve user inputs
+        intInvestment = document.getElementById("txtIntInvestment");
+        mnthDeposit = document.getElementById("txtMnthDeposit")
+        numOfPeriods = document.getElementById("txtNumOfPeriods");
+        intRate = document.getElementById("txtIntRate");
+
+        // set variables and convert strings to numbers
+        var intInvestmentNum = parseFloat(intInvestment.value);
+        var mnthDepositNum = parseFloat(mnthDeposit.value);
+        var numOfPeriodsNum = parseFloat(numOfPeriods.value);
+        var intRateNum = parseFloat(intRate.value);
+
+        // validate input
+        if (isNaN(intInvestmentNum) == false && isNaN(numOfPeriodsNum) == false && isNaN(intRateNum) == false && isNaN(mnthDepositNum) == false) {
+
+          // prepare variables for equation
+          numOfPeriodsNum = numOfPeriodsNum * 12;
+          intRateNum = (intRateNum / 100) / 12;
+
+          // variables
+          var principalAmount = 0;
+          var interestAmount = 0;
+          var newBalance = 0;
+          intInvestmentNum = intInvestmentNum - mnthDepositNum;
+
+          // for loop to calculate each period
+          for (var currentPeriod = 1; currentPeriod <= numOfPeriodsNum; currentPeriod++) {
+            var currentRow = tbl.insertRow();
+
+            // first column is period number
+            var currentCell = currentRow.insertCell(0);
+            var currentText = document.createTextNode(currentPeriod.toString());
+            currentCell.appendChild(currentText);
+
+            // second column is present value
+            intInvestmentNum = interestAmount + intInvestmentNum + mnthDepositNum;
+            // decimal formatting
+            function calc(intInvestmentNum)
+            {
+              var num = intInvestmentNum.original.value, rounded = intInvestmentNum.rounded;
+              var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+              rounded.value = max2Decimals;
+            }
+            if (intInvestmentNum % 1 != 0) {
+            intInvestmentNum = intInvestmentNum.toFixed(2);
+            }
+            intInvestmentNum = parseFloat(intInvestmentNum);
+            // append table
+            var columnTwoCell = currentRow.insertCell();
+            var balanceText = document.createTextNode("$" + intInvestmentNum.toString());
+            columnTwoCell.appendChild(balanceText);
+
+            // third column is deposit
+            var columnThreeCell = currentRow.insertCell();
+            var depositText = document.createTextNode("$" + mnthDepositNum.toString());
+            columnThreeCell.appendChild(depositText);
+
+            // fourth column is interest
+            interestAmount = (intInvestmentNum + mnthDepositNum) * intRateNum;
+            // decimal formatting
+            function calc(interestAmount)
+            {
+              var num = interestAmount.original.value, rounded = interestAmount.rounded;
+              var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+              rounded.value = max2Decimals;
+            }
+            if (interestAmount % 1 != 0) {
+              interestAmount = interestAmount.toFixed(2);
+            }
+            interestAmount = parseFloat(interestAmount);
+            // append table
+            var columnFourCell = currentRow.insertCell();
+            var interestText = document.createTextNode("$" + interestAmount.toString());
+            columnFourCell.appendChild(interestText);
+
+            // fifth column is new balance
+            newBalance =  mnthDepositNum + interestAmount + intInvestmentNum;
+            // decimal formatting
+            function calc(newBalance)
+            {
+              var num = newBalance.original.value, rounded = newBalance.rounded;
+              var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+              rounded.value = max2Decimals;
+            }
+            if (newBalance % 1 != 0) {
+            newBalance = newBalance.toFixed(2);
+            }
+            // append table
+            var columnSixCell = currentRow.insertCell();
+            var endingBalanceText = document.createTextNode("$" + newBalance.toString());
+            columnSixCell.appendChild(endingBalanceText);
+          }
+
+          // append the table to the end of the body.
+          var tDivTable = document.getElementById("divPlaceholderTable");
+          RemoveAllChildren(tDivTable);
+          tDivTable.appendChild(tbl);
+        }
+        else {
+          // send result
+          var v
+          v = document.getElementById("spnResult");
+          v.innerHTML = "Please input a valid number";
+        }
+        // Remove all child nodes from the current node.
+        function RemoveAllChildren(argNode) {
+            while (argNode.firstChild) {
+                argNode.removeChild(argNode.firstChild);
+            }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="header">
+        <header>
+                    <h1 class="page-title"><a href="index.html">Calculators</a></h1>
+          <!--navigation-->
+          <nav>
+            <table>
+              <tr>
+                <td><a href="./amortize.html">Amortization</a></td>
+                <td><a href="./futurevalue.html"><span class="selected">Future Value</span></a></td>
+                <td><a href="./payment.html">Payment</a></td>
+                <td><a href="./compoundInterest.html">Compound Interest</a></td>
+                <td><a href="./afford.html">Max Payment</a></td>
+              </tr>
+            </table>
+          </nav>
+        </header>
+      </div>
+      <!--main-->
+      <div class="mainContent">
+        <main>
+          <form class="frmMain" method="post">
+            <fieldset>
+              <legend>Future Value</legend>
+                <table>
+                  <tr>
+                    <td>Initial Investment:</td>
+                    <td><input type="text" id="txtIntInvestment" /></td>
+                  </tr>
+                  <tr>
+                    <td>Monthly Deposit Amount:</td>
+                    <td><input type="text" id="txtMnthDeposit" /></td>
+                  </tr>
+                  <tr>
+                    <td>Number of Periods (Years):</td>
+                    <td><input type="text" id="txtNumOfPeriods" /></td>
+                  </tr>
+                  <tr>
+                    <td>Annual Interest Rate:</td>
+                    <td><input type="text" id="txtIntRate" /></td>
+                  </tr>
+                  <tr>
+                    <td><input class="button" type="button" id="btnResult" value="Result" onclick="btnResult_Click()" /></td>
+                    <td><span id="spnResult"></span></td>
+                  </tr>
+                </table>
+            </fieldset>
+          </form>
+          <br />
+          <div id="divPlaceholderTable"></div>
+        </main>
+      </div>
+      <div class="footerContent">
+        <footer><small><a href="https://anthonycuccia.com">www.anthonycuccia.com</a></small></footer>
+      </div>
+    </div>
+  </body>
+</html>

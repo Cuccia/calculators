@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Compound Interest</title>
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/color.css">
+    <script type="text/javascript">
+      var v;
+
+      // run program once user clicks button
+      function btnResult_Click()
+      {
+        v = document.getElementById("spnResult");
+
+        // variables
+        var intInvestmentAmt, numOfPeriods, intRate;
+
+        // retrieve user inputs
+        intInvestmentAmt = document.getElementById("txtIntInvestmentAmt");
+        numOfPeriods = document.getElementById("txtNumOfPeriods");
+        intRate = document.getElementById("txtIntRate");
+
+        // formula: a = p(1+(r/n))^nt
+        // p
+        var intInvestmentAmtNum = parseFloat(intInvestmentAmt.value);
+        // t
+        var numOfPeriodsNum = parseFloat(numOfPeriods.value);
+        // r
+        var intRateNum = parseFloat(intRate.value) / 100;
+        // n
+        var compounded = 12;
+        // a
+        var balance;
+        // equation
+        balance = intInvestmentAmtNum * Math.pow(1 + (intRateNum / compounded),(compounded * numOfPeriodsNum));
+
+        // decimal formatting
+        function calc(balance)
+        {
+          var num = balance.original.value, rounded = balance.rounded;
+          var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+          rounded.value = max2Decimals;
+        }
+
+        // send result
+        v.innerHTML = "The total balance after interest earned is " + "$" + balance.toFixed(2);
+
+      }
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="header">
+        <header>
+                    <h1 class="page-title"><a href="index.html">Calculators</a></h1>
+          <!--navigation-->
+          <nav>
+            <table>
+              <tr>
+                <td><a href="./amortize.html">Amortization</a></td>
+                <td><a href="./futurevalue.html">Future Value</a></td>
+                <td><a href="./payment.html">Payment</a></td>
+                <td><a href="./compoundInterest.html"><span class="selected">Compound Interest</span></a></td>
+                <td><a href="./afford.html">Max Payment</a></td>
+              </tr>
+            </table>
+          </nav>
+        </header>
+      </div>
+      <!--main-->
+      <div class="mainContent">
+        <main>
+          <form class="frmMain" method="post">
+            <fieldset>
+
+              <legend>Compound Interest Calculation</legend>
+
+              <table>
+                <tr>
+                  <td>Initial Investment Amount:</td>
+                  <td><input type="number" id="txtIntInvestmentAmt" /></td>
+                </tr>
+                <tr>
+                  <td>Number of Periods (Years):</td>
+                  <td><input type="number" id="txtNumOfPeriods" /></td>
+                </tr>
+                <tr>
+                  <td>Annual Interest Rate (%):</td>
+                  <td><input type="number" id="txtIntRate" /></td>
+                </tr>
+                <tr>
+                  <td><input class="button" type="button" id="btnResult" value="Result" onclick="btnResult_Click()" /></td>
+                  <td><span id="spnResult"></span></td>
+                </tr>
+              </table>
+
+            </fieldset>
+          </form>
+        </main>
+      </div>
+      <div class="footerContent">
+        <footer><small><a href="https://anthonycuccia.com">www.anthonycuccia.com</a></small></footer>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+body {
+  background-color: #FFFAFA;
+  color: #2c2c2c;
+}
+
+p, footer {
+  color: #2c2c2c;
+}
+
+.selected {
+  color: #FF2200;
+}
+
+legend {
+  color: #0088b8;
+}
+
+h1 {
+  color: #0088b8;
+}
+
+form td {
+  color: #2c2c2c;
+}
+
+.button {
+  background-color: #FFFAFA;
+  border-color: #2c2c2c;
+  color: #0088b8;
+}
+.button:hover {
+  background-color: #0088b8;
+  color: #fff8e5;
+}
+
+fieldset {
+  border-radius: 0px;
+  border-width: 0px;
+}
+
+
+/*unvisited*/
+a:link {
+  color: #050806;
+}
+/*visted link*/
+a:visited {
+  color: #A41500;
+}
+/*mouse over*/
+a:hover {
+  color: #FF2200;
+}
+/*active click*/
+a:active {
+  color: #FF2200;
+}
